@@ -3,7 +3,6 @@
 """
 Created on Tue Feb 20 22:45:49 2018
 
-@author: omar
 """
 
 #import io
@@ -47,7 +46,7 @@ d1.close()
 
 
 #vectorizar
-noticias= fetch_20newsgroups(subset="d1")
+noticias= fetch_20newsgroups(subset="train")
 noticias.data[0]
 len(noticias.data)
 noticias.target_names
@@ -62,7 +61,12 @@ lr=LogisticRegression()
 
 #Crear vectores
 limpio = open('vectores.sgm','wt')
-limpio.write('\n')
+limpio.write('\n% s'%bolsa)
+limpio.close()
+
+#Crear noticas
+limpio = open('noticias.sgm','wt')
+limpio.write('\n% s'%noticias.data)
 limpio.close()
 
 
@@ -76,3 +80,5 @@ limpio.close()
         appendFile.write(" "+r)
         appendFile.close()"""
         
+
+ 
