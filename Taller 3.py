@@ -46,7 +46,7 @@ for i in range(len(noticias)):
         pass
     
 #Calculo de longitud
-nlen=len(logn)       
+lenv=len(logn)       
 n_features = 1000
 n_topics = 10
 n_top_words = 20
@@ -57,7 +57,7 @@ print("Loading dataset and extracting TF-IDF features...")
 
 vectorizer = TfidfVectorizer(max_df=0.95, min_df=2, max_features=n_features,
                              stop_words='english')
-tfidf = vectorizer.fit_transform(noticias[nlen])
+tfidf = vectorizer.fit_transform(noticias[lenv])
 doc2=open("tfidf.sgm","w")
 doc2.write(str(tfidf))
 fileRaw.close()
