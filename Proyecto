@@ -1,0 +1,33 @@
+
+
+from bs4 import BeautifulSoup
+import requests
+import re
+
+
+# Download IMDB's dataset de peliculas populaes/Series
+url = 'https://www.imdb.com/search/title?count=100&title_type=feature,tv_series&ref_=nv_wl_img_2'
+response = requests.get(url)
+soup = BeautifulSoup(response.text, 'lxml')
+#Selecionado Datos 
+movies = soup.select('h3.lister-item-header')
+genero = [b.attrs.get('data-value') for b in soup.select('p.text-muted span[name=genre]')]
+votos =[ b.attrs.get('data-value') for b in soup.select('div.ratings-bar div[name=ir]')]
+
+imdb = []
+#Recopilando Dataset 
+for index in range(0, len(movies)):
+    # Selecionado temad de contenido: '#', 'titulo', 'año', 'votos',"genero"
+    movie_string = movies[index].get_text()
+    movie = (' '.join(movie_string.split()).replace('.', ''))
+    movie_title = movie[len(str(index))+1:-7]
+    year = re.search('\((.*?)\)', movie_string).group(1)  
+    place = movie[:len(str(index))-(len(movie))]
+    data = {"movie_title": movie_title,"place": place,"genero": genero,"year":year,"votos":votos}
+
+    imdb.append(data)
+#Imprimir contenido a graficas genero-votos
+for item in imdb:
+    print( item['place'],'-',item['movie_title'],'-',item['year'],'Genero:',item['genero'],'Votos:',item['votos'])
+    
+    
