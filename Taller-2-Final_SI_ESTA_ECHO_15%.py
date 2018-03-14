@@ -4,7 +4,18 @@ Created on Sat Feb 24 08:42:12 2018
 
 @author: MILO
 """
+import pymongo
 
+from pymongo import MongoClient
+
+def conexionBD():
+    #Conx a mongo
+    client = MongoClient()
+    client =("")
+    db = client.prueba1
+    return db
+  
+  
 from __future__ import print_function
 from time import time
 import json
@@ -12,6 +23,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.datasets import fetch_20newsgroups
 from sklearn.feature_extraction.text import CountVectorizer
 import array
+
+db = conexionBD()
+#tablas de contenido
+Noticia    = db.noticias
+Raw        = db.raw
+StopWord   = db.stop
+MatrizTfTd = db.tfitd
+
 
 n_samples = 2000
 n_features = 1000
